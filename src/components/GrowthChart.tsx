@@ -12,14 +12,14 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 interface GrowthChartProps {
-  data: { date: string; followers: number; engagement: number }[];
+  data: { date: string; followers: number }[];
 }
 
 export default function GrowthChart({ data }: GrowthChartProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Growth Overview</CardTitle>
+        <CardTitle>Follower Growth</CardTitle>
       </CardHeader>
       <CardContent>
         <ResponsiveContainer width="100%" height={320}>
