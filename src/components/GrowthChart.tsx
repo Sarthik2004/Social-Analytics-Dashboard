@@ -30,21 +30,14 @@ export default function GrowthChart({ data }: GrowthChartProps) {
                 <stop offset="95%" stopColor="#6366f1" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <CartesianGrid strokeDasharray="3 3" className="stroke-muted" />
-            <XAxis dataKey="date" className="text-xs" />
-            <YAxis className="text-xs" />
-            <Tooltip
-              contentStyle={{
-                backgroundColor: "hsl(var(--background))",
-                borderColor: "hsl(var(--border))",
-                borderRadius: "8px",
-              }}
-            />
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="date" />
+            <YAxis />
+            <Tooltip />
             <Area
               type="monotone"
               dataKey="followers"
               stroke="#6366f1"
-              fillOpacity={1}
               fill="url(#colorFollowers)"
               strokeWidth={2}
             />

@@ -16,10 +16,10 @@ import { signOut } from "next-auth/react";
 
 const navItems = [
   { href: "/dashboard", label: "Overview", icon: LayoutDashboard },
-  { href: "/clients", label: "Clients", icon: Users },
-  { href: "/analytics", label: "Analytics", icon: BarChart3 },
-  { href: "/reports", label: "Reports", icon: FileText },
-  { href: "/settings", label: "Settings", icon: Settings },
+  { href: "/dashboard/clients", label: "Clients", icon: Users },
+  { href: "/dashboard/analytics", label: "Analytics", icon: BarChart3 },
+  { href: "/dashboard/reports", label: "Reports", icon: FileText },
+  { href: "/dashboard/settings", label: "Settings", icon: Settings },
 ];
 
 export default function Sidebar() {

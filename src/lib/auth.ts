@@ -3,9 +3,10 @@ import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import dbConnect from "@/lib/mongodb";
 import User from "@/models/User";
-import type { NextAuthConfig } from "next-auth";
+import { authConfig } from "@/auth.config";
 
-export const authConfig: NextAuthConfig = {
+export const { handlers, auth, signIn, signOut } = NextAuth({
+  ...authConfig,
   providers: [
     Credentials({
       name: "Credentials",
@@ -20,21 +21,18 @@ export const authConfig: NextAuthConfig = {
 
         await dbConnect();
 
-        const user = await User.findOne({ email: credentials.email });
+        const user = await User.findOne({ email: credentials.email as string });
 
         if (!user || !user.password) {
           return null;
         }
 
-        // Fix: ensure both arguments are strings
         const isValid = await bcrypt.compare(
           credentials.password as string,
-          user.password as string
+          user.password
         );
 
-        if (!isValid) {
-          return null;
-        }
+        if (!isValid) return null;
 
         return {
           id: user._id.toString(),
@@ -46,9 +44,6 @@ export const authConfig: NextAuthConfig = {
       },
     }),
   ],
-  session: {
-    strategy: "jwt",
-  },
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
@@ -59,16 +54,11 @@ export const authConfig: NextAuthConfig = {
     },
     async session({ session, token }) {
       if (session.user) {
-        (session.user as any).id = token.id;
-        (session.user as any).role = token.role;
+        (session.user as any).id = token.id as string;
+        (session.user as any).role = token.role as string;
       }
       return session;
     },
   },
-  pages: {
-    signIn: "/login",
-  },
   secret: process.env.NEXTAUTH_SECRET,
-};
-
-export const { handlers, auth, signIn, signOut } = NextAuth(authConfig);
+});
