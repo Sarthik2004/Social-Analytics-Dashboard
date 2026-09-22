@@ -72,9 +72,9 @@ export default async function ClientReportPage({ params }: Props) {
           <Link href="/dashboard/reports">
             <Button variant="outline">Back</Button>
           </Link>
-          <Button disabled title="PDF export coming next">
-            Download PDF
-          </Button>
+          <a href={`/api/reports/${id}/pdf`}>
+      <Button>Download PDF</Button>
+    </a>
         </div>
       </div>
 
