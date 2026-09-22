@@ -1,0 +1,32 @@
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { ReactNode } from "react";
+
+interface EmptyStateProps {
+  title: string;
+  description: string;
+  actionLabel?: string;
+  actionHref?: string;
+  icon?: ReactNode;
+}
+
+export default function EmptyState({
+  title,
+  description,
+  actionLabel,
+  actionHref,
+  icon,
+}: EmptyStateProps) {
+  return (
+    <div className="flex flex-col items-center justify-center rounded-xl border border-dashed p-10 text-center">
+      {icon && <div className="mb-4 text-muted-foreground">{icon}</div>}
+      <h3 className="text-lg font-semibold">{title}</h3>
+      <p className="mt-2 max-w-md text-sm text-muted-foreground">{description}</p>
+      {actionLabel && actionHref && (
+        <Link href={actionHref} className="mt-6">
+          <Button>{actionLabel}</Button>
+        </Link>
+      )}
+    </div>
+  );
+}

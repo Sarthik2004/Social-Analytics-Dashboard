@@ -6,6 +6,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Plus } from "lucide-react";
+import EmptyState from "@/components/EmptyState";
+import { Users } from "lucide-react";
 
 export const runtime = "nodejs";
 
@@ -31,24 +33,29 @@ export default async function ClientsPage() {
           </p>
         </div>
 
-       <Link href="/dashboard/clients/new">
-  <Button>
-    <Plus className="h-4 w-4 mr-2" />
-    Add Client
-  </Button>
-</Link>
+        <Link href="/dashboard/clients/new">
+          <Button>
+            <Plus className="h-4 w-4 mr-2" />
+            Add Client
+          </Button>
+        </Link>
       </div>
 
       {clients.length === 0 ? (
-        <Card>
-          <CardContent className="py-10 text-center text-muted-foreground">
-            No clients yet. Click <b>Add Client</b> to create one.
-          </CardContent>
-        </Card>
+        <EmptyState
+          title="No clients yet"
+          description="Add your first client to start tracking social media performance."
+          actionLabel="Add Client"
+          actionHref="/dashboard/clients/new"
+          icon={<Users className="h-10 w-10" />}
+        />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {clients.map((client: any) => (
-            <Link key={client._id.toString()} href={`/dashboard/clients/${client._id}`}>
+            <Link
+              key={client._id.toString()}
+              href={`/dashboard/clients/${client._id}`}
+            >
               <Card className="hover:shadow-md transition-shadow cursor-pointer">
                 <CardHeader>
                   <CardTitle>{client.name}</CardTitle>
